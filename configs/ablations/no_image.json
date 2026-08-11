@@ -1,0 +1,11 @@
+{
+  "name": "no-image",
+  "inherits": "paper-sim",
+  "observation": {
+    "speed_observation": "state",
+    "include_env_state": false,
+    "include_qpos": true,
+    "include_qvel": true,
+    "frame_stack": 5
+  }
+}

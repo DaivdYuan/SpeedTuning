@@ -1,0 +1,5 @@
+{
+  "name": "reward-beta-3",
+  "inherits": "paper-sim",
+  "reward": {"speed_power": 3.0}
+}

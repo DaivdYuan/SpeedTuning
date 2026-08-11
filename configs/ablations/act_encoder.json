@@ -1,0 +1,8 @@
+{
+  "name": "act-task-policy-encoder",
+  "inherits": "paper-sim",
+  "observation": {
+    "speed_observation": "external",
+    "observation_encoder_loader": "act_integration:build_act_observation_encoder"
+  }
+}

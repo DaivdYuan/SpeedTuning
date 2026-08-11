@@ -1,0 +1,92 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "speedtuning-sim"
+version = "0.1.0"
+description = "Simulation tasks and speed-policy infrastructure for SpeedTuning"
+readme = "README.md"
+requires-python = ">=3.10,<3.11"
+license = "MIT"
+license-files = ["LICENSE", "NOTICE.md", "detr/LICENSE"]
+authors = [{name = "David D. Yuan"}]
+keywords = ["robotics", "reinforcement-learning", "mujoco", "action-chunking"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "dm-control==1.0.9",
+    "mujoco==2.3.3",
+    "numpy>=1.23,<2",
+    "pyquaternion==0.9.9",
+]
+
+[project.optional-dependencies]
+learned = [
+    "einops>=0.6,<0.9",
+    "packaging>=23,<26",
+    "torch==2.5.1",
+    "torchvision==0.20.1",
+]
+rl = ["torch==2.5.1"]
+test = ["pytest>=8,<9"]
+video = ["imageio>=2.31,<3", "imageio-ffmpeg>=0.4.9,<0.7"]
+evaluation = ["matplotlib>=3.7,<4"]
+
+[project.urls]
+Paper = "https://doi.org/10.1109/ICRA55743.2025.11128753"
+Preprint = "https://arxiv.org/abs/2608.09138"
+"Project Page" = "https://daivdyuan.github.io/speed-tuning/"
+Video = "https://daivdyuan.github.io/speed-tuning/static/videos/icra2025_final.mp4"
+Repository = "https://github.com/DaivdYuan/SpeedTuning"
+Documentation = "https://github.com/DaivdYuan/SpeedTuning/blob/main/docs/SCRIPTED_REPRODUCTION.md"
+Issues = "https://github.com/DaivdYuan/SpeedTuning/issues"
+
+[project.scripts]
+speedtuning-sim = "scripts.run_sim:main"
+speedtuning-check-chunks = "scripts.check_chunked_policy:main"
+speedtuning-rainbow-poc = "scripts.rainbow_poc:main"
+speedtuning-train-speed = "scripts.train_speed_policy:main"
+speedtuning-eval-speed = "scripts.eval_speed_policy:main"
+speedtuning-sweep = "scripts.sweep_speed_policy:main"
+
+[tool.setuptools]
+include-package-data = true
+py-modules = [
+    "act_integration",
+    "chunked_policy",
+    "constants",
+    "ee_sim_env",
+    "experiment_config",
+    "policy",
+    "policy_loader",
+    "policy_speed_env",
+    "scripted_policy",
+    "sim_env",
+    "sim_tasks",
+    "speed_policy",
+    "speed_evaluation",
+    "speed_observation",
+    "speed_training",
+]
+
+[tool.setuptools.packages.find]
+include = ["assets", "configs*", "detr*", "rl*", "scripts*"]
+
+[tool.setuptools.package-data]
+assets = ["*.xml", "*.stl", "*.obj"]
+configs = ["*.json", "*.md", "ablations/*.json"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+markers = [
+    "learned: requires the optional PyTorch/torchvision learned-policy stack",
+    "rl: requires the optional PyTorch Rainbow DQN stack",
+]

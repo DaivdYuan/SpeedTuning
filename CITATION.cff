@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the SpeedTuning paper."
+title: "SpeedTuning simulation and speed-policy infrastructure"
+type: software
+version: 0.1.0
+authors:
+  - family-names: Yuan
+    given-names: David D.
+license: MIT
+repository-code: "https://github.com/DaivdYuan/SpeedTuning"
+preferred-citation:
+  type: conference-paper
+  title: "SpeedTuning: Speeding Up Policy Execution with Lightweight Reinforcement Learning"
+  authors:
+    - family-names: Yuan
+      given-names: David D.
+    - family-names: Zhao
+      given-names: Tony Z.
+    - family-names: Burns
+      given-names: Kaylee
+    - family-names: Finn
+      given-names: Chelsea
+  collection-title: "2025 IEEE International Conference on Robotics and Automation (ICRA)"
+  year: 2025
+  doi: "10.1109/ICRA55743.2025.11128753"

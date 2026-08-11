@@ -1,0 +1,12 @@
+{
+  "name": "scripted-tea-bag-randomized",
+  "inherits": "scripted-tea-bag",
+  "status": "scripted-policy reproduction with seeded pose variation",
+  "environment": {
+    "randomize_object_pose": true
+  },
+  "evaluation": {
+    "episodes": 100,
+    "episodes_per_speed": 100
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "name": "scripted-policy",
+  "inherits": "paper-sim",
+  "base_policy": {"base_policy": "scripted"}
+}

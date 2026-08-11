@@ -1,0 +1,49 @@
+{
+  "name": "paper-sim",
+  "status": "best-recovered archival configuration; checkpoints and data are not included",
+  "evidence": "Published paper plus retained SpeedTuningViz experiment names",
+  "base_policy": {
+    "base_policy": "external-chunk",
+    "chunk_size": 100
+  },
+  "environment": {
+    "speed_values": [1.5, 2.0, 3.0, 4.5],
+    "frame_skip": 10
+  },
+  "observation": {
+    "speed_observation": "visual",
+    "camera_names": ["top"],
+    "image_encoder": "resnet18-pretrained",
+    "image_size": 224,
+    "include_env_state": false,
+    "include_qpos": true,
+    "include_qvel": true,
+    "frame_stack": 5
+  },
+  "reward": {
+    "success_bonus": 100.0,
+    "speed_weight": 0.01,
+    "speed_power": 2.0
+  },
+  "training": {
+    "decisions": 100000,
+    "memory_size": 1000000,
+    "batch_size": 128,
+    "learning_starts": 512,
+    "gradient_steps": 1,
+    "update_schedule": "episode",
+    "checkpoint_interval": 10000,
+    "hidden_dim": 1024,
+    "gamma": 0.99,
+    "target_update": 50,
+    "beta_schedule": "legacy"
+  },
+  "evaluation": {
+    "episodes": 2000,
+    "adaptive_episodes": 2000,
+    "episodes_per_speed": 100,
+    "speed_start": 1.0,
+    "speed_stop": 4.5,
+    "speed_step": 0.1
+  }
+}

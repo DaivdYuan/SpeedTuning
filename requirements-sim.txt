@@ -1,0 +1,6 @@
+# Physics versions are pinned because the historical waypoint controllers are
+# sensitive to MuJoCo contact and solver changes.
+dm-control==1.0.9
+mujoco==2.3.3
+numpy>=1.23,<2
+pyquaternion==0.9.9

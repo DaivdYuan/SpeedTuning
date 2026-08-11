@@ -1,0 +1,7 @@
+include CHANGELOG.md
+include CITATION.cff
+include CONTRIBUTING.md
+include NOTICE.md
+include requirements-sim.txt
+recursive-include benchmarks *.json *.md
+recursive-include docs *.md *.png

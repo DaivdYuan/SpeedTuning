@@ -1,0 +1,5 @@
+{
+  "name": "random-resnet18",
+  "inherits": "paper-sim",
+  "observation": {"image_encoder": "resnet18-random"}
+}

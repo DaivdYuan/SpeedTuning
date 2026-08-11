@@ -1,0 +1,58 @@
+name: Simulation tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      MUJOCO_GL: osmesa
+      PYOPENGL_PLATFORM: osmesa
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify checkpoint-free release contents
+        run: |
+          forbidden="$(git ls-files | grep -E '(^|/)(outputs|checkpoints|runs|wandb)/|\.(pt|pth|ckpt|onnx|h5|hdf5|pkl|pickle)$' || true)"
+          if [ -n "$forbidden" ]; then
+            echo "Generated model artifacts must not be tracked:"
+            echo "$forbidden"
+            exit 1
+          fi
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: pip
+      - name: Install headless MuJoCo rendering libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes libgl1 libosmesa6
+      - name: Install public package and test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[rl,learned,test]" build twine
+      - name: Run tests
+        run: pytest -q
+      - name: Run supported integration commands
+        run: |
+          speedtuning-sim
+          speedtuning-sim --speed 1.5
+          speedtuning-check-chunks
+          speedtuning-rainbow-poc
+          speedtuning-eval-speed --task tea_bag --base-policy recorded-chunk --episodes 1
+          speedtuning-sweep --task tea_bag --base-policy scripted --speed-start 1.0 --speed-stop 1.1 --episodes-per-speed 1 --output /tmp/sweep.json
+      - name: Build source and wheel distributions
+        run: |
+          python -m build
+          python -m twine check dist/*
+          tar -tzf dist/*.tar.gz | grep 'docs/SCRIPTED_REPRODUCTION.md'
+          tar -tzf dist/*.tar.gz | grep 'benchmarks/scripted_results.json'
+      - name: Verify the wheel and packaged MuJoCo assets
+        run: |
+          python -m venv /tmp/speedtuning-package-check
+          /tmp/speedtuning-package-check/bin/python -m pip install dist/*.whl
+          cd /tmp
+          /tmp/speedtuning-package-check/bin/python -c "from experiment_config import load_experiment_config; assert load_experiment_config('scripted-pick-and-place')[0]['decisions'] == 100000"
+          /tmp/speedtuning-package-check/bin/speedtuning-sim --task tea_bag

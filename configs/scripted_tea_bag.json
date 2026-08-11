@@ -1,0 +1,47 @@
+{
+  "name": "scripted-tea-bag",
+  "status": "fully runnable scripted-policy reproduction",
+  "evidence": "Retained run_speed_rl.py at commit 097a46f plus the ICRA 2025 paper",
+  "base_policy": {
+    "base_policy": "scripted"
+  },
+  "environment": {
+    "speed_values": [1.0, 1.5, 2.0, 2.5, 3.0],
+    "frame_skip": 10
+  },
+  "observation": {
+    "speed_observation": "state",
+    "include_env_state": true,
+    "include_qpos": true,
+    "include_qvel": true,
+    "frame_stack": 1
+  },
+  "reward": {
+    "success_bonus": 100.0,
+    "speed_weight": 0.01,
+    "speed_power": 2.0
+  },
+  "training": {
+    "decisions": 100000,
+    "memory_size": 1000000,
+    "batch_size": 128,
+    "learning_starts": 128,
+    "gradient_steps": 1,
+    "update_schedule": "episode",
+    "checkpoint_interval": 10000,
+    "hidden_dim": 256,
+    "gamma": 0.99,
+    "target_update": 50,
+    "beta_schedule": "legacy",
+    "epsilon": 0.0,
+    "min_epsilon": 0.0,
+    "exploration_steps": 0
+  },
+  "evaluation": {
+    "episodes": 20,
+    "episodes_per_speed": 50,
+    "speed_start": 1.0,
+    "speed_stop": 3.0,
+    "speed_step": 0.25
+  }
+}

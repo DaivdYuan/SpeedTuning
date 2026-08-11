@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "description": "Reference results for from-scratch scripted-policy training",
+  "protocol": {
+    "base_policy": "bundled scripted policy",
+    "training_decisions": 100000,
+    "evaluation_checkpoint": "final training output",
+    "held_out_seeds": [100, 199],
+    "episodes_per_task": 100,
+    "metric": "physical_acceleration=nominal_horizon/executed_physics_steps"
+  },
+  "results": {
+    "pick_and_place": {
+      "preset": "scripted-pick-and-place",
+      "training_seed": 0,
+      "learned_speed": {
+        "successes": 98,
+        "success_rate": 0.98,
+        "mean_physical_acceleration": 3.856
+      },
+      "matched_fixed_speed": {
+        "commanded_speed": 3.856,
+        "successes": 66,
+        "success_rate": 0.66,
+        "mean_physical_acceleration": 3.846
+      }
+    },
+    "insertion": {
+      "preset": "scripted-insertion",
+      "training_seed": 0,
+      "learned_speed": {
+        "successes": 97,
+        "success_rate": 0.97,
+        "mean_physical_acceleration": 2.387
+      },
+      "matched_fixed_speed": {
+        "commanded_speed": 2.387,
+        "successes": 52,
+        "success_rate": 0.52,
+        "mean_physical_acceleration": 2.381
+      }
+    },
+    "tea_bag": {
+      "preset": "scripted-tea-bag-randomized",
+      "training_seed": 1,
+      "learned_speed": {
+        "successes": 78,
+        "success_rate": 0.78,
+        "mean_physical_acceleration": 2.077
+      },
+      "matched_fixed_speed": {
+        "commanded_speed": 2.075,
+        "successes": 24,
+        "success_rate": 0.24,
+        "mean_physical_acceleration": 2.075
+      }
+    }
+  }
+}

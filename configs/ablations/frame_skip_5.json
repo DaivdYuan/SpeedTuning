@@ -1,0 +1,5 @@
+{
+  "name": "frame-skip-5",
+  "inherits": "paper-sim",
+  "environment": {"frame_skip": 5}
+}
